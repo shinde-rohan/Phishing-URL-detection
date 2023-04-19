@@ -1,3 +1,4 @@
+from threading import Thread
 import ipaddress
 import re
 import urllib.request
@@ -10,6 +11,19 @@ from datetime import date, datetime
 import time
 from dateutil.parser import parse as date_parse
 from urllib.parse import urlparse
+class CustomThread(Thread):
+    def __init__(self,group=None,target=None,name=None,args=(),kwargs={},Verbose=None):
+        Thread.__init__(self,group,target,name,args,kwargs)
+        self._return = None
+
+    def run(self):
+        if self._target is not None:
+            self._return = self._target(*self._args,**self._kwargs)
+            
+    def join(self):
+        Thread.join(self)
+        return self._return
+    
 
 class FeatureExtraction:
     features = []
@@ -40,9 +54,98 @@ class FeatureExtraction:
             pass
 
 
-        
+        x = CustomThread(target=self.UsingIp)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.longUrl)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.shortUrl)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.symbol)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.redirecting)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.prefixSuffix)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.SubDomains)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.Hppts)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.DomainRegLen)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.Favicon)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.NonStdPort)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.HTTPSDomainURL)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.RequestURL)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.AnchorURL)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.LinksInScriptTags)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.ServerFormHandler)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.InfoEmail)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.AbnormalURL)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.WebsiteForwarding)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.StatusBarCust)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.DisableRightClick)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.UsingPopupWindow)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.IframeRedirection)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.AgeofDomain)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.DNSRecording)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.WebsiteTraffic)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.PageRank)
+        z.start()
+        self.features.append(z.join())
+        x = CustomThread(target=self.GoogleIndex)
+        x.start()
+        self.features.append(x.join())
+        y = CustomThread(target=self.LinksPointingToPage)
+        y.start()
+        self.features.append(y.join())
+        z = CustomThread(target=self.StatsReport)
+        z.start()
+        self.features.append(z.join())
 
-        self.features.append(self.UsingIp())
+        '''self.features.append(self.UsingIp())
         self.features.append(self.longUrl())
         self.features.append(self.shortUrl())
         self.features.append(self.symbol())
@@ -74,7 +177,7 @@ class FeatureExtraction:
         self.features.append(self.PageRank())
         self.features.append(self.GoogleIndex())
         self.features.append(self.LinksPointingToPage())
-        self.features.append(self.StatsReport())
+        self.features.append(self.StatsReport())'''
 
 
      # 1.UsingIp
