@@ -37,7 +37,8 @@ def index():
         if y_pred == -1:
             df = pd.DataFrame({'Links':[url]})
             df.to_csv('listOfSites.csv', mode='a', index=False, header=False)
-            send_mail()
+            # Uncomment to send mail or report website via mail
+            #send_mail()
 
         #1 is safe       
         #-1 is unsafe
@@ -61,6 +62,7 @@ def send_mail():
     # with open('password.txt', 'r') as x:
     #   password = x.read()
     url = request.form["url"]
+    #sample example of email and password 
     server.login('rohaney1992@gmail.com', 'vnxkmdxaxldfytqw')
 
     subject = "phishing please investigate "
